@@ -10,25 +10,25 @@ class RenogyRoverClient extends RenogySensor {
     static ImageFile = "RenogyRoverClient.jpg"
 
 /*
-          "batteryType": "electrical.charger.battery.type",
-          "batteryPercentage": "electrical.charger.battery.charge",
-          "batteryVoltage": "electrical.charger.battery.voltage",
-          "batteryCurrent": "electrical.charger.battery.current",
-          "controllerTemperature": "electrical.charger.temperature",
-          "batteryTemperature": "electrical.charger.battery.temperature",
-          "loadVoltage": "electrical.charger.load.voltage",
-          "loadCurrent": "electrical.charger.load.current",
-          "loadPower": "electrical.charger.load.power",
-          "pvVoltage": "electrical.charger.solar.voltage",
-          "pvCurrent": "electrical.charger.solar.current",
-          "pvPower": "electrical.charger.solar.power",
-          "maxChargingPowerToday": "electrical.charger.today.max",
-          "maxDischargingPowerToday": "electrical.charger.discharging.maximum",
-          "chargingAmpHoursToday": "electrical.charger.charged.today",
-          "powerGenerationToday": "electrical.charger.power.today",
-          "powerGenerationTotal": "electrical.charger.power.total",
-          "loadStatus": "electrical.charger.load.status",
-          "chargingStatus": "electrical.charger.status"
+          "batteryType": "electrical.solar.battery.type",
+          "batteryPercentage": "electrical.solar.battery.charge",
+          "batteryVoltage": "electrical.solar.battery.voltage",
+          "batteryCurrent": "electrical.solar.battery.current",
+          "controllerTemperature": "electrical.solar.temperature",
+          "batteryTemperature": "electrical.solar.battery.temperature",
+          "loadVoltage": "electrical.solar.load.voltage",
+          "loadCurrent": "electrical.solar.load.current",
+          "loadPower": "electrical.solar.load.power",
+          "pvVoltage": "electrical.solar.solar.voltage",
+          "pvCurrent": "electrical.solar.solar.current",
+          "pvPower": "electrical.solar.solar.power",
+          "maxChargingPowerToday": "electrical.solar.today.max",
+          "maxDischargingPowerToday": "electrical.solar.discharging.maximum",
+          "chargingAmpHoursToday": "electrical.solar.charged.today",
+          "powerGenerationToday": "electrical.solar.power.today",
+          "powerGenerationTotal": "electrical.solar.power.total",
+          "loadStatus": "electrical.solar.load.status",
+          "chargingStatus": "electrical.solar.status"
 */
 
     initSchema(){
@@ -39,75 +39,75 @@ class RenogyRoverClient extends RenogySensor {
             .default="solar"
 
         this.addMetadatum('batteryType', '', "battery type")
-            .default="electrical.chargers.{id}.battery.type"
+            .default="electrical.solar.{id}.battery.type"
         this.addMetadatum('batteryPercentage', 'ratio', "battery percentage",
              (buffer)=>{return buffer.readUInt16BE(3)/100 })
-            .default="electrical.chargers.{id}.battery.soc"
+            .default="electrical.solar.{id}.battery.soc"
 
         this.addMetadatum('batteryVoltage', 'V', "battery voltage",
             (buffer)=>{return buffer.readUInt16BE((5))/10})
-        .default="electrical.chargers.{id}.battery.voltage"
+        .default="electrical.solar.{id}.battery.voltage"
 
         this.addMetadatum('batteryCurrent', 'A', 'battery current',
             (buffer)=>{return buffer.readUInt16BE((7))/100})
-        .default="electrical.chargers.{id}.battery.current"
+        .default="electrical.solar.{id}.battery.current"
 
         this.addMetadatum('controllerTemperature', 'K', 'controller temperature',
             (buffer)=>{return buffer.readInt8((9))+273.15})
-        .default="electrical.chargers.{id}.controller.temperature"
+        .default="electrical.solar.{id}.controller.temperature"
 
         this.addMetadatum('batteryTemperature', 'K', 'battery temperature',
             (buffer)=>{return buffer.readInt8((10))+273.15})
-        .default="electrical.chargers.{id}.battery.temperature"
+        .default="electrical.solar.{id}.battery.temperature"
 
         this.addMetadatum('loadVoltage', 'V', 'load voltage',
             (buffer)=>{return buffer.readUInt16BE((11))/10})
-        .default="electrical.chargers.{id}.load.voltage"
+        .default="electrical.solar.{id}.load.voltage"
 
         this.addMetadatum('loadCurrent',  'A', 'load current',
             (buffer)=>{return buffer.readUInt16BE((13))/100})
-        .default="electrical.chargers.{id}.load.current"
+        .default="electrical.solar.{id}.load.current"
         this.addMetadatum('loadPower', 'W', 'load power',
             (buffer)=>{return buffer.readUInt16BE((15))})
-        .default="electrical.chargers.{id}.load.power"
+        .default="electrical.solar.{id}.load.power"
         this.addMetadatum('pvVoltage', 'V', 'pv voltage',
             (buffer)=>{return buffer.readUInt16BE((17))/10})
-        .default="electrical.chargers.{id}.solar.voltage"
+        .default="electrical.solar.{id}.solar.voltage"
         this.addMetadatum('pvCurrent', 'A', 'pv current',
             (buffer)=>{return buffer.readUInt16BE((19))/100})
-        .default="electrical.chargers.{id}.solar.current"
+        .default="electrical.solar.{id}.solar.current"
         this.addMetadatum('pvPower', 'W', 'pv power',
             (buffer)=>{return buffer.readUInt16BE(21)})
-        .default="electrical.chargers.{id}.solar.power"
+        .default="electrical.solar.{id}.solar.power"
         this.addMetadatum('maxChargingPowerToday', 'W', 'max charging power today',
             (buffer)=>{return buffer.readUInt16BE(33)})
-        .default="electrical.chargers.{id}.charge.max.today"
+        .default="electrical.solar.{id}.charge.max.today"
         this.addMetadatum('maxDischargingPowerToday', 'W', 'max discharging power today',
             (buffer)=>{return buffer.readUInt16BE(35)})
-        .default="electrical.chargers.{id}.discharge.max.today"
+        .default="electrical.solar.{id}.discharge.max.today"
         this.addMetadatum('chargingAmpHoursToday', 'Ah', 'charging amp hours today',
             (buffer)=>{return buffer.readUInt16BE(37)})
-        .default="electrical.chargers.{id}.charge.ampHours.today"
+        .default="electrical.solar.{id}.charge.ampHours.today"
 
         this.addMetadatum('dischargingAmpHoursToday', 'Ah', 'discharging amp hours today',
             (buffer)=>{return buffer.readUInt16BE(39)})
-        .default="electrical.chargers.{id}.discharge.ampHours.today"
+        .default="electrical.solar.{id}.discharge.ampHours.today"
 
         this.addMetadatum('powerGenerationToday', 'W', 'power generation today',
             (buffer)=>{return buffer.readUInt16BE(41)})
-        .default="electrical.chargers.{id}.power.generated.today"
+        .default="electrical.solar.{id}.power.generated.today"
 
         this.addMetadatum('powerConsumptionToday', 'W', 'power consumption today',
             (buffer)=>{return buffer.readUInt16BE(43)})
-        .default="electrical.chargers.{id}.power.consumed.today"
+        .default="electrical.solar.{id}.power.consumed.today"
 
         this.addMetadatum('powerGenerationTotal', 'W', 'power generation total',
             (buffer)=>{return buffer.readUInt32BE(59)})
-         .default="electrical.chargers.{id}.power.generated.total"
+         .default="electrical.solar.{id}.power.generated.total"
 
         this.addMetadatum('loadStatus', '',  'load status',
             (buffer)=>{return RC.LOAD_STATE[buffer.readUInt8(67)>>7]})
-         .default="electrical.chargers.{id}.load.status"
+         .default="electrical.solar.{id}.load.status"
 
         this.addMetadatum('chargingStatus', '', 'charging status',
             (buffer)=>{
