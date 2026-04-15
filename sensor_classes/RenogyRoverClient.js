@@ -85,24 +85,24 @@ class RenogyRoverClient extends RenogySensor {
         this.addMetadatum('maxDischargingPowerToday', 'W', 'max discharging power today',
             (buffer)=>{return buffer.readUInt16BE(35)})
         .default="electrical.solar.{id}.discharge.max.today"
-        this.addMetadatum('chargingAmpHoursToday', 'Ah', 'charging amp hours today',
-            (buffer)=>{return buffer.readUInt16BE(37)})
-        .default="electrical.solar.{id}.charge.ampHours.today"
+        this.addMetadatum('chargingCoulombsToday', 'C', 'charging coulombs today',
+            (buffer)=>{return buffer.readUInt16BE(37) * 3600})
+        .default="electrical.solar.{id}.charge.today"
 
-        this.addMetadatum('dischargingAmpHoursToday', 'Ah', 'discharging amp hours today',
-            (buffer)=>{return buffer.readUInt16BE(39)})
-        .default="electrical.solar.{id}.discharge.ampHours.today"
+        this.addMetadatum('dischargingCoulombsToday', 'C', 'discharging coulombs today',
+            (buffer)=>{return buffer.readUInt16BE(39) * 3600})
+        .default="electrical.solar.{id}.discharge.today"
 
-        this.addMetadatum('powerGenerationToday', 'W', 'power generation today',
-            (buffer)=>{return buffer.readUInt16BE(41)})
+        this.addMetadatum('powerGenerationToday', 'J', 'joules generation today',
+            (buffer)=>{return buffer.readUInt16BE(41) * 3600})
         .default="electrical.solar.{id}.power.generated.today"
 
-        this.addMetadatum('powerConsumptionToday', 'W', 'power consumption today',
-            (buffer)=>{return buffer.readUInt16BE(43)})
+        this.addMetadatum('powerConsumptionToday', 'J', 'joules consumption today',
+            (buffer)=>{return buffer.readUInt16BE(43) * 3600})
         .default="electrical.solar.{id}.power.consumed.today"
 
-        this.addMetadatum('powerGenerationTotal', 'W', 'power generation total',
-            (buffer)=>{return buffer.readUInt32BE(59)})
+        this.addMetadatum('powerGenerationTotal', 'J', 'joules generation total',
+            (buffer)=>{return buffer.readUInt32BE(59) * 3600})
          .default="electrical.solar.{id}.power.generated.total"
 
         this.addMetadatum('loadStatus', '',  'load status',
