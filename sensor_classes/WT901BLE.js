@@ -214,7 +214,7 @@ class WT901BLE extends   WT901Sensor {
       }
 
       async emitGATT(){
-        this.debug(`in emitGATT, pollfreq: ${pollfreq}`)
+        this.debug(`in emitGATT, pollfreq: ${this?.pollFreq}`)
         //await this.emitGATT2()
       }
       async emitGATT2(){

@@ -243,6 +243,7 @@ class AbstractBTHomeSensor extends BTSensor {
 			btHomeData,
 			BTHomeServiceData.BthomeObjectId.BINARY_MOTION
 		)?.motion;
+		if (!motion) return null;
 		return motion.intValue==1
 	}
 	
@@ -256,7 +257,7 @@ class AbstractBTHomeSensor extends BTSensor {
 		return this.getSensorDataByObjectId(
 			btHomeData,
 			BTHomeServiceData.BthomeObjectId.MISC_PACKET_ID,
-		).packetId
+		)?.packetId ?? null
 	}
 
 	/**
@@ -312,6 +313,7 @@ class AbstractBTHomeSensor extends BTSensor {
    */
   parseWindowState(btHomeData) {
     const state = this.getSensorDataByObjectId(btHomeData, BTHomeServiceData.BthomeObjectId.BINARY_WINDOW)?.window;
+    if (!state) return null;
     if (state.intValue === 1) return "open";
     if (state.intValue === 0) return "closed";
     return null;
