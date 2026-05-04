@@ -4,8 +4,7 @@ class GoveeSensor extends  BTSensor {
     static Domain = this.SensorDomains.environmental
     static ManufacturerUUID = '0000ec88-0000-1000-8000-00805f9b34fb'
     static async  identify(device){
-        
-        const regex = /^Govee_H5075_[a-f,A-F,0-9]{4}$/
+
         const name = await this.getDeviceProp(device,"Name")
         const uuids = await this.getDeviceProp(device,'UUIDs')
  

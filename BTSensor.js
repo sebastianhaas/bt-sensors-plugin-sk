@@ -522,7 +522,7 @@ class BTSensor extends EventEmitter {
     }
 
     addDefaultPath(tag,defaultPath){
-        const path = eval(`BTSensor.DEFAULTS.${defaultPath}`)
+        const path = defaultPath.split('.').reduce((obj, k) => obj?.[k], BTSensor.DEFAULTS)
         return this.addPath(tag,Object.assign({}, path))
     }
 
@@ -756,7 +756,6 @@ class BTSensor extends EventEmitter {
      */
     initPropertiesChanged(){
         let lastPropsChanged = -1
-        this._propertiesChanged.bind(this)
         this.device.helper._prepare()
         this.device.helper.on("PropertiesChanged",
             ((props)=> {
@@ -847,8 +846,8 @@ class BTSensor extends EventEmitter {
 
     }
     macAndName(){
-        if (this.getMacAddress()==null) 
-            debugger
+        if (this.getMacAddress()==null)
+            this.debug(`macAndName called with null MAC address for ${this.getName()}`)
         return `${this.getName().replaceAll(':', '-').replaceAll(" ","_")}-${this.getMacAddress().replaceAll(':', '-')}`
     }
     getNameAndAddress(){

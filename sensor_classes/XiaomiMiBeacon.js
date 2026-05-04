@@ -92,7 +92,6 @@ class XiaomiMiBeacon extends BTSensor{
                 return null
         }
     }
-    static ImageFile="LYWSD03MMC-Device.jpg"
 
     emitValues(buffer){
         this.emitData("temp", buffer, 0)

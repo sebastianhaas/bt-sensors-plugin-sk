@@ -137,7 +137,6 @@ async function fetchJSONData(path, data = {}) {
     
     const response = await fetchJSONData("getSensorInfo",{mac_address: mac, class: sensorClass})
     if (response.status!=200){
-      debugger
       throw new Error(`Unable get sensor info: ${response.statusText} (${response.status}) `)
     }
     const json = await response.json()
