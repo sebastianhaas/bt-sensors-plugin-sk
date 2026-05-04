@@ -222,13 +222,11 @@ class HumsienkBMS extends BTSensor {
     } catch (e) {
       this.debug(`Failed to emit battery info for ${this.getName()}: ${e}`);
     }
-    setTimeout(async () => {
-      try {
-        await this.getAndEmitCellVoltages();
-      } catch (e) {
-        this.debug(`Failed to emit cell voltages for ${this.getName()}: ${e}`);
-      }
-    }, 10000);
+    try {
+      await this.getAndEmitCellVoltages();
+    } catch (e) {
+      this.debug(`Failed to emit cell voltages for ${this.getName()}: ${e}`);
+    }
   }
 
   /**

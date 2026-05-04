@@ -214,6 +214,7 @@ class ShellySBWS90CM extends AbstractBTHomeSensor {
   }
 
   propertiesChanged(props) {
+    super.propertiesChanged(props);
     const raw = this.getServiceData(this.constructor.BTHOME_SERVICE_ID);
     if (!raw) return;
     const buffer = Buffer.isBuffer(raw) ? raw : Buffer.from(raw);
