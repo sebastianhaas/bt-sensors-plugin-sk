@@ -39,13 +39,13 @@ class RenogyBattery extends RenogySensor {
         this.addDefaultPath('capacity', 'electrical.batteries.capacity.actual') 
             .read=(buffer)=>{return buffer.readUInt32BE(11)/1000}
 
-        for (let i = 0; i++ ; i < this.numberOfCells) {
+        for (let i = 0; i < this.numberOfCells; i++) {
             this.addMetadatum(`cellVoltage${i}`, 'V', `cell #${i} voltage`,
-                (buffer)=>{ return buffer.readUInt16(5+ i*2) })
+                (buffer)=>{ return buffer.readUInt16BE(5+ i*2) })
             .default=`electrical.batteries.{batteryID}.cell${i}.voltage`
 
             this.addMetadatum(`cellTemp${i}`, 'K', `cell #${i} temperature`,
-                (buffer)=>{ return buffer.readUInt16(5+ i*2)+273.15 })
+                (buffer)=>{ return buffer.readUInt16BE(5+ i*2)+273.15 })
                 .default=`electrical.batteries.{batteryID}.cell${i}.temperature`
 
         }
@@ -74,7 +74,7 @@ class RenogyBattery extends RenogySensor {
             await this.sendReadFunctionRequest(0x1388,0x11)
 
             const valChanged = async (buffer) => {
-                resolve(buffer.readUInt16(3))
+                resolve(buffer.readUInt16BE(3))
             }
             this.readChar.once('valuechanged', valChanged )
         })

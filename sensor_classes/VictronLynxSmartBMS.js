@@ -52,7 +52,7 @@ class VictronLynxSmartBMS extends VictronSensor{
 
         this.emit('warningsAndAlarms',br.read_unsigned_int(18))
         this.emit('soc',
-            this.NaNif((br.read_unsigned_int(10),0x3FF)/1000))
+            this.NaNif(br.read_unsigned_int(10),0x3FF)/1000)
         this.emit('consumedAh',
             this.NaNif(br.read_unsigned_int(20),0xFFFFF)/10 )
         this.emit('temp', 

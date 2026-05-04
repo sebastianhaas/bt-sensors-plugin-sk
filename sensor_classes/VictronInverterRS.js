@@ -24,8 +24,8 @@ class VictronInverterRS extends VictronSensor{
         this.addMetadatum('batteryVoltage','V', 'battery voltage', 
             (buff)=>{return this.NaNif(buff.readInt16LE(2),0x7FFF)/100})
             .default='electrical.inverters.{id}.battery.voltage'
-        .
-        this.addMetadatum('pvPower','W', 'PV power', 
+
+        this.addMetadatum('pvPower','W', 'PV power',
             (buff)=>{return this.NaNif(buff.readUInt16LE(4), 0xffff)})
             .default='electrical.inverters.{id}.power'
         
@@ -33,8 +33,8 @@ class VictronInverterRS extends VictronSensor{
             (buff)=>{return this.NaNif(buff.readUInt16LE(6), 0xffff)*10})
             .default='electrical.inverters.{id}.yieldToday'
  
-        this.addMetadatum('acOutPower','W', 'AC out power in watts', 
-            (buff)=>{this.NaNif(buff.readInt16LE(8), 0x7fff)}) 
+        this.addMetadatum('acOutPower','W', 'AC out power in watts',
+            (buff)=>{return this.NaNif(buff.readInt16LE(8), 0x7fff)})
             .default='electrical.inverters.{id}.ac.power'
               
     }

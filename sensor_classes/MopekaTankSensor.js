@@ -77,7 +77,7 @@ class MopekaTankSensor extends BTSensor{
 
     _tankLevel( rawLevel ){
         const coefs= this.getMedium().coefficients
-        return rawLevel * (coefs[0] + (coefs[1] * (this.temp-233.15)) + (coefs[2] * ((this.temp-233.15)^2)))
+        return rawLevel * (coefs[0] + (coefs[1] * (this.temp-233.15)) + (coefs[2] * ((this.temp-233.15)**2)))
     }
     
     initSchema(){
