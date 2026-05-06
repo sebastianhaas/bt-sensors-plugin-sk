@@ -232,12 +232,51 @@ class AbstractBTHomeSensor extends BTSensor {
 		)?.illuminance;
 		return illuminance;
 	}
+/**
+	 * Extracts the binary moisture/flood state from the given BTHome data.
+	 *
+	 * Uses BTHome object ID {@link BTHomeServiceData.BthomeObjectId.BINARY_MOISTURE}
+	 * (0x20 = 32), decoded as a {@link BTHomeServiceData.BthomeBinaryMoisture}
+	 * containing a {@link BTHomeServiceData.Bool8}.
+	 *
+	 * @param {BTHomeServiceData.BthomeServiceData} btHomeData
+	 * @returns {boolean|null} `true` if water is detected, `false` if dry, or
+	 *   `null` if the measurement is not present in this advertisement.
+	 */
+	parseMoisture(btHomeData) {
+		const moisture = this.getSensorDataByObjectId(
+			btHomeData,
+			BTHomeServiceData.BthomeObjectId.BINARY_MOISTURE,
+		)?.moisture;
+		if (moisture == null) return null;
+		return moisture.intValue === 1;
+	}
+/**
+ * Extracts the moisture percentage from the given BTHome data.
+ *
+ * Uses BTHome object ID SENSOR_MOISTURE_0_01 (0x14 = 20), decoded as a
+ * BthomeSensorMoisture001 containing a uint16 LE value with a 0.01 factor.
+ *
+ * @param {BTHomeServiceData.BthomeServiceData} btHomeData
+ * @returns {number|null} Moisture as a ratio (0–1), or null if not present.
+ */
+parseMoisturePercentage(btHomeData) {
+    const moisture = this.getSensorDataByObjectId(
+        btHomeData,
+        BTHomeServiceData.BthomeObjectId.SENSOR_MOISTURE_0_01,
+    )?.moisture;
+    if (moisture == null) return null;
+    return Number.parseFloat((moisture / 100.0).toFixed(4));
+}
+
 	/**
 	 * Extracts motion detection from the given BTHome data.
 	 *
 	 * @param btHomeData {BTHomeServiceData.BthomeServiceData} The BTHome data provided by the device.
    * @returns {Boolean|null} Wether the device has detected motion.
 	 */
+
+
 	parseMotion(btHomeData) {
 		const motion = this.getSensorDataByObjectId(
 			btHomeData,
