@@ -50,10 +50,10 @@ class VictronVEBus extends VictronSensor{
         this.emit('alarm', ALARM_STATE[br.read_unsigned_int(2)])
         
         this.emit('batteryTemperature',
-            this.NaNif((br.read_unsigned_int(7),0x7F))+233.15)  
+            this.NaNif(br.read_unsigned_int(7),0x7F)+233.15)
 
-        this.emit('soc', 
-            this.NaNif((br.read_unsigned_int(7),0x7F))/100)
+        this.emit('soc',
+            this.NaNif(br.read_unsigned_int(7),0x7F)/100)
  
     }
 }
