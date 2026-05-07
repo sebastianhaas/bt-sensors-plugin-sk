@@ -1,6 +1,11 @@
 # Bluetooth Sensors for [Signal K](http://www.signalk.org) 
 
 ## WHAT'S NEW  
+# Version.1.3.8.beta7
+
+- multiple stability changes throughout with abundant thanks @nearlcrews (see PRs #142, #143, #144 #145 and #146)
+- WattCycle battery support (see PR #139) Kudos to @elliotmoso
+- Enhancements to JBMBMS and RenogyRoverClient courtesy of the ever industrious @Techstyleuk (PR #149)
 
 # Version.1.3.8.beta6
 - regression error in VictronDCDCConverter fixed
