@@ -1,8 +1,8 @@
 const VictronSensor = require ("./Victron/VictronSensor.js") 
 const VC = require("./Victron/VictronConstants.js")
 const BitReader = require("./_BitReader")
-AC_IN_STATE=["AC in 1","AC in 2","NOT CONNECTED", "NA"]
-ALARM_STATE=["None","warning", "alarm","NA"]
+const AC_IN_STATE=["AC in 1","AC in 2","NOT CONNECTED", "NA"]
+const ALARM_STATE=["None","warning", "alarm","NA"]
 class VictronVEBus extends VictronSensor{
 
     static ImageFile="VictronVEBus.webp"

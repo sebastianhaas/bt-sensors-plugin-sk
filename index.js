@@ -11,7 +11,6 @@ const OutOfRangeDevice = require("./OutOfRangeDevice.js")
 const { createChannel, createSession } = require("better-sse");
 const { clearTimeout } = require('timers')
 const loadClassMap = require('./classLoader.js')
-const { debug } = require("node:console")
 class MissingSensor  {
 
 	constructor(config){
