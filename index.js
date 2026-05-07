@@ -275,10 +275,11 @@ module.exports =   function (app) {
 					options, async () => {
 						res.status(200).json({message: "Sensor updated"})
 						if (sensor) {
-							if (sensor.isActive()) 
+							if (sensor.isActive()) {
 								await sensor.stopListening()
 								removeSensorFromList(sensor)
-						} 
+							}
+						}
 						initConfiguredDevice(req.body)
 					}
 				)
@@ -734,12 +735,11 @@ module.exports =   function (app) {
 			plugin.setError(`Unable to get adapters: ${e.message}`)
 		}
 		
-		await startScanner(options)
 		if (starts>0){
 			plugin.debug(`Plugin ${packageInfo.version} restarting...`);
 		} else {
 			plugin.debug(`Plugin ${packageInfo.version} started` )
-			
+
 		}
 		starts++
 		if (!await adapter.isDiscovering())
@@ -753,16 +753,16 @@ module.exports =   function (app) {
 			const totalDevices = deviceConfigs.filter((dc)=>dc.active).length
 
 			var progress = 0
-			if (progressID==null) 
+			if (progressID==null)
 			progressID  = setInterval(()=>{
 				channel.broadcast({"progress":++progress, "maxTimeout": maxTimeout, "deviceCount":foundConfiguredDevices, "totalDevices": totalDevices},"progress")
 				if ( foundConfiguredDevices==totalDevices){
-					progressID,progressTimeoutID = null
-					clearTimeout(progressTimeoutID)
+					if (progressTimeoutID) clearTimeout(progressTimeoutID)
+					progressTimeoutID = null
 					clearInterval(progressID)
 					progressID = null
 				}
-			},1000); 
+			},1000);
 			if (progressTimeoutID==null)
 			progressTimeoutID = setTimeout(()=> {
 				if (progressID) {
@@ -836,7 +836,7 @@ module.exports =   function (app) {
 		}
 
 		if (deviceHealthID) {
-			clearTimeout(deviceHealthID)
+			clearInterval(deviceHealthID)
 			deviceHealthID=null
 		}
 

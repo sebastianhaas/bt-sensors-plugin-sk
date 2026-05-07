@@ -107,7 +107,7 @@ class MercurySmartcraft extends BTSensor{
     }
     async deactivateGATT(){
         for (const c in this.dataCharacteristics){
-            await this.stopGATTNotifications(c)
+            await this.stopGATTNotifications(this.dataCharacteristics[c])
         }
         await super.deactivateGATT()
 
