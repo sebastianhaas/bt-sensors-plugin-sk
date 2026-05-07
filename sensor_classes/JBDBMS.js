@@ -67,19 +67,27 @@ class JBDBMS extends BTSensor {
       return buffer.readInt16BE(6) / 100;
     };
 
-    this.addDefaultPath(
+    this.addMetadatum(
       "remainingCapacity",
-      "electrical.batteries.capacity.remaining"
-    ).read = (buffer) => {
-      return (buffer.readUInt16BE(8) / 100) * 3600;
-    };
+      "J",
+      "remaining battery energy",
+      (buffer) => {
+        const voltage = buffer.readUInt16BE(4) / 100;    // V
+        const remainingAh = buffer.readUInt16BE(8) / 100; // Ah
+        return remainingAh * voltage * 3600;              // J
+      }
+    ).default = "electrical.batteries.capacity.remaining";
 
-    this.addDefaultPath(
+    this.addMetadatum(
       "capacity",
-      "electrical.batteries.capacity.actual"
-    ).read = (buffer) => {
-      return (buffer.readUInt16BE(10) / 100) * 3600;
-    };
+      "J",
+      "battery energy capacity",
+      (buffer) => {
+        const voltage = buffer.readUInt16BE(4) / 100;    // V
+        const capacityAh = buffer.readUInt16BE(10) / 100; // Ah
+        return capacityAh * voltage * 3600;              // J
+      }
+    ).default = "electrical.batteries.capacity.actual";
 
     this.addDefaultPath("cycles", "electrical.batteries.cycles").read = (
       buffer
@@ -147,15 +155,15 @@ class JBDBMS extends BTSensor {
       }
     }
 
-    for (let i = 0; i < this.numberOfTemps; i++) {
+    if (this.numberOfTemps > 0) {
       this.addMetadatum(
-        `temp${i}`,
+        "temperature",
         "K",
-        `Temperature${i + 1} reading`,
+        "battery temperature",
         (buffer) => {
-          return buffer.readUInt16BE(27 + i * 2) / 10;
+          return buffer.readUInt16BE(27) / 10;
         }
-      ).default = `electrical.batteries.{batteryID}.Temperature${i + 1}`;
+      ).default = "electrical.batteries.{batteryID}.temperature";
     }
 
     for (let i = 0; i < this.numberOfCells; i++) {
