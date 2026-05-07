@@ -50,15 +50,15 @@ class SwitchBotMeterPlus extends BTSensor{
     }
 
     propertiesChanged(props){
-        super.propertiesChanged(props)    
+        super.propertiesChanged(props)
+        if (!props.ServiceData) return
         const buff = this.getServiceData("0000fd3d-0000-1000-8000-00805f9b34fb")
-        if (!buff)
-            throw new Error("Unable to get service data for "+this.getDisplayName())
+        if (!buff) return
         this.emitData("temp", buff)
         this.emitData("humidity", buff)
         this.emitData("battery", buff)
-        
-    }                    
+
+    }
     getManufacturer(){
         return "Wonder Labs"
     }

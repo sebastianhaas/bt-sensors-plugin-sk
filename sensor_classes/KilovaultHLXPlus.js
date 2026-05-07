@@ -194,9 +194,9 @@ class KilovaultHLXPlus extends BTSensor{
       }
     }
 
-    async initGATTConnection(isReconnecting){ 
+    async initGATTConnection(isReconnecting){
         await super.initGATTConnection(isReconnecting)
-        const gattServer= this.getGATTServer()
+        const gattServer= await this.getGATTServer()
         
         const battService = await gattServer.getPrimaryService("0000ffe0-0000-1000-8000-00805f9b34fb") 
         this.battCharacteristic = await battService.getCharacteristic("0000ffe4-0000-1000-8000-00805f9b34fb")

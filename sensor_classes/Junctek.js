@@ -109,7 +109,7 @@ class JunctekBMS extends BTSensor{
                     emitObject["charge"]=v/100000
                     break
                 case 0xD6:
-                    if (chargeDirection==-1){
+                    if (this.chargeDirection==-1){
                         emitObject["timeToCharged"] = NaN
                         emitObject["timeRemaining"] = v*60
                     }

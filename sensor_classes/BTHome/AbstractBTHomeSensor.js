@@ -282,6 +282,7 @@ parseMoisturePercentage(btHomeData) {
 			btHomeData,
 			BTHomeServiceData.BthomeObjectId.BINARY_MOTION
 		)?.motion;
+		if (!motion) return null;
 		return motion.intValue==1
 	}
 	
@@ -295,7 +296,7 @@ parseMoisturePercentage(btHomeData) {
 		return this.getSensorDataByObjectId(
 			btHomeData,
 			BTHomeServiceData.BthomeObjectId.MISC_PACKET_ID,
-		).packetId
+		)?.packetId ?? null
 	}
 
 	/**
@@ -351,6 +352,7 @@ parseMoisturePercentage(btHomeData) {
    */
   parseWindowState(btHomeData) {
     const state = this.getSensorDataByObjectId(btHomeData, BTHomeServiceData.BthomeObjectId.BINARY_WINDOW)?.window;
+    if (!state) return null;
     if (state.intValue === 1) return "open";
     if (state.intValue === 0) return "closed";
     return null;

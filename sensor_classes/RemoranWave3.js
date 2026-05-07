@@ -59,7 +59,8 @@ const BTSensor = require("../BTSensor");
             this.debug(`Bad buffer size ${buffer.length}. Buffer size must be 20 bytes or more.`)
             return
         }
-        this.emit("versionNumber", buffer.readUInt8(0))
+        const versionNumber = buffer.readUInt8(0)
+        this.emit("versionNumber", versionNumber)
         const errors = buffer.readUInt8(2)
         const errorState = []
         for (var i = 0; i < 8; ++i) {
@@ -76,7 +77,7 @@ const BTSensor = require("../BTSensor");
         if (buffer.length > 23) {
             this.emit( "temp", ((buffer.readFloatLE(20))+273.15))
             this.emit( "uptime", buffer.readUInt32LE(24))
-            if (versionNumber>1 && buffer.size > 31) {
+            if (versionNumber>1 && buffer.length > 31) {
                 this.emit("energy", buffer.readFloatLE(32))
             }
         }
@@ -84,7 +85,7 @@ const BTSensor = require("../BTSensor");
     }
     emitInfo2Data(buffer){
 
-        if (buffer.size < 12) {
+        if (buffer.length < 12) {
             this.setError(`Bad buffer size ${buffer.length}. Buffer size must be 12 bytes or more.`)
             return
          }

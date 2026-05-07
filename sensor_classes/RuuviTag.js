@@ -104,10 +104,10 @@ Offset	Allowed values	Description
         this.addDefaultPath("pressure", "environment.pressure") 
         .read=(buffer)=>{ return buffer.readUInt16BE(4)+50000}
         
-        this.addMetadatum("accX","Mg","acceleration on X-axis", 
+        this.addMetadatum("accX","Mg","acceleration on X-axis",
             (buffer)=>{ return buffer.readInt16BE(6)}
-        ).
-        this.addMetadatum("accY","Mg","acceleration on Y-axis", 
+        )
+        this.addMetadatum("accY","Mg","acceleration on Y-axis",
             (buffer)=>{ return buffer.readInt16BE(8)}
         )
         this.addMetadatum("accZ","Mg","acceleration on Z-axis", 
